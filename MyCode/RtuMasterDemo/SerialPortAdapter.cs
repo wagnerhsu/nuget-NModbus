@@ -1,7 +1,5 @@
-using System;
-using System.IO.Ports;
-using System.IO;
 using NModbus.IO;
+using System.IO.Ports;
 
 namespace ModbusRtuMasterExample
 {
