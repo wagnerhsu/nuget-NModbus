@@ -35,12 +35,12 @@ namespace Samples
                 //ModbusSocketSerialMasterWriteRegisters();
                 //ModbusSocketSerialMasterReadRegisters();
                 await Task.Run(() => { });
-				        //ModbusTcpMasterReadInputs();
-				        //SimplePerfTest();
-				        //ModbusSerialRtuMasterWriteRegisters();
-				        //ModbusSerialAsciiMasterReadRegisters();
-				        //ModbusTcpMasterReadInputs();
-								ModbusTcpMasterReadHoldingRegisters32();
+                //ModbusTcpMasterReadInputs();
+                //SimplePerfTest();
+                //ModbusSerialRtuMasterWriteRegisters();
+                //ModbusSerialAsciiMasterReadRegisters();
+                //ModbusTcpMasterReadInputs();
+                ModbusTcpMasterReadHoldingRegisters32();
                 //StartModbusAsciiSlave();
                 //ModbusTcpMasterReadInputsFromModbusSlave();
                 //ModbusSerialAsciiMasterReadRegistersFromModbusSlave();
@@ -50,7 +50,6 @@ namespace Samples
                 //await StartModbusSerialRtuSlaveNetwork(cts.Token);
                 //await StartModbusSerialRtuSlaveWithCustomMessage(cts.Token);
             }
-
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
@@ -87,16 +86,14 @@ namespace Samples
                 master.WriteMultipleRegisters(slaveId, startAddress, registers);
             }
         }
+
         /// <summary>
         /// Simple write to socket connector sending RTU messages
         /// </summary>
         public static void ModbusSocketSerialMasterWriteRegisters()
         {
-
-
             using (var sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
             {
-
                 // configure socket
                 var serverIP = IPAddress.Parse("192.168.2.100");
                 var serverFullAddr = new IPEndPoint(serverIP, 9000);
@@ -113,16 +110,14 @@ namespace Samples
                 master.WriteMultipleRegisters(slaveId, startAddress, registers);
             }
         }
+
         /// <summary>
         /// Simple Read registers using socket and expecting RTU fromatted response messages.
         /// </summary>
         public static void ModbusSocketSerialMasterReadRegisters()
         {
-
-
             using (var sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
             {
-
                 // configure socket
                 var serverIP = IPAddress.Parse("192.168.2.100");
                 var serverFullAddr = new IPEndPoint(serverIP, 9000);
@@ -162,7 +157,7 @@ namespace Samples
                 ushort startAddress = 1;
                 ushort numRegisters = 5;
 
-                // read five registers		
+                // read five registers
                 ushort[] registers = master.ReadHoldingRegisters(slaveId, startAddress, numRegisters);
 
                 for (int i = 0; i < numRegisters; i++)
@@ -171,7 +166,7 @@ namespace Samples
                 }
             }
 
-            // output: 
+            // output:
             // Register 1=0
             // Register 2=0
             // Register 3=0
@@ -200,7 +195,7 @@ namespace Samples
                 }
             }
 
-            // output: 
+            // output:
             // Input 100=0
             // Input 101=0
             // Input 102=0
@@ -218,21 +213,20 @@ namespace Samples
                 var factory = new ModbusFactory();
                 IModbusMaster master = factory.CreateMaster(client);
 
-
-								byte slaveId = 1;
-								ushort startAddress = 7165;
+                byte slaveId = 1;
+                ushort startAddress = 7165;
                 ushort numInputs = 5;
-								UInt32 www = 0x42c80083;
+                UInt32 www = 0x42c80083;
 
-								master.WriteSingleRegister32(slaveId, startAddress, www);
-								uint[] registers = master.ReadHoldingRegisters32(slaveId, startAddress, numInputs);
+                master.WriteSingleRegister32(slaveId, startAddress, www);
+                uint[] registers = master.ReadHoldingRegisters32(slaveId, startAddress, numInputs);
 
-				        for (int i = 0; i < numInputs; i++)
-				        {
-									Console.WriteLine($"Input {(startAddress + i)}={registers[i]}");
-				        }
-						}
-				}
+                for (int i = 0; i < numInputs; i++)
+                {
+                    Console.WriteLine($"Input {(startAddress + i)}={registers[i]}");
+                }
+            }
+        }
 
         /// <summary>
         ///     Simple Modbus UDP master write coils example.
@@ -390,7 +384,7 @@ namespace Samples
                 byte registerCountMSB = frameStart[4];
                 byte registerCountLSB = frameStart[5];
 
-                int numberOfRegisters = ( registerCountMSB << 8) + registerCountLSB;
+                int numberOfRegisters = (registerCountMSB << 8) + registerCountLSB;
 
                 Console.WriteLine($"Got Hmi Buffer Request for {numberOfRegisters} registers.");
 
@@ -403,8 +397,6 @@ namespace Samples
             }
         }
 
-
-        
         /// <summary>
         /// Simple Modbus serial RTU slave example.
         /// </summary>
