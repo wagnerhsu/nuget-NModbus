@@ -1,0 +1,12 @@
+﻿{
+  "Serilog": {
+    "MinimumLevel": "Debug",
+    "WriteTo": [
+      { "Name": "Console" }
+    ],
+    "Enrich": [ "FromLogContext", "WithThreadId" ],
+    "Properties": {
+      "Application": "TcpSlaveDemo"
+    }
+  }
+}

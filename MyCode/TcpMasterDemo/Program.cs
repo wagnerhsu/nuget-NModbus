@@ -1,10 +1,17 @@
-﻿using NModbus;
+﻿using Microsoft.Extensions.Configuration;
+using NModbus;
 using System.Net.Sockets;
 
 Console.WriteLine("NModbus TCP Master示例开始...");
 
-string ipAddress = "192.168.0.100";
-int port = 502;
+// Build configuration
+var config = new ConfigurationBuilder()
+    .SetBasePath(AppContext.BaseDirectory)
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .Build();
+
+string ipAddress = config["Modbus:IpAddress"];
+int port = int.Parse(config["Modbus:Port"]);
 byte slaveId = 1;
 
 try
